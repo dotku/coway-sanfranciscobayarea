@@ -70,19 +70,19 @@ export default function ProductsPage() {
             <nav className="hidden md:flex items-center gap-8">
               <Link
                 href="/products"
-                className="text-[#00A8E3] font-semibold transition-colors"
+                className="text-[#00A8E3] font-semibold transition-colors inline-block w-[150px] text-center"
               >
                 Products 产品
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors"
+                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors inline-block w-[150px] text-center"
               >
                 Contact 联系我们
               </Link>
               <a
                 href="/#wechat"
-                className="inline-flex items-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors"
+                className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors w-[150px]"
                 title="WeChat: WeijingJayLin"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

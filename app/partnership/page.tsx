@@ -23,19 +23,19 @@ export default function PartnershipPage() {
             <nav className="hidden md:flex items-center gap-8">
               <Link
                 href="/products"
-                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors"
+                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors inline-block w-[150px] text-center"
               >
                 Products 产品
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors"
+                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors inline-block w-[150px] text-center"
               >
                 Contact 联系我们
               </Link>
               <a
                 href="/#wechat"
-                className="inline-flex items-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors"
+                className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors w-[150px]"
                 title="WeChat: WeijingJayLin"
               >
                 <svg
@@ -93,12 +93,13 @@ export default function PartnershipPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Why Partner */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Why Partner with Coway?
             </h2>
+            <p className="text-gray-600 text-sm mb-2">为什么选择与 Coway 合作？</p>
             <p className="text-gray-600 leading-relaxed mb-6">
-              Join a global leader in wellness technology with award-winning
-              products, strong marketing support, and dedicated local service.
+              Join a global leader in wellness technology with award-winning products, strong marketing support, and
+              dedicated local service. 成为全球领先健康科技品牌的合作伙伴，获得成熟产品、营销赋能与本地化服务。
             </p>
 
             <div className="space-y-4">
@@ -109,6 +110,7 @@ export default function PartnershipPage() {
                   <p className="text-gray-600 text-sm">
                     CES 2025 Innovation Awards Honoree products
                   </p>
+                  <p className="text-gray-600 text-sm">屡获大奖，品牌背书可靠</p>
                 </div>
               </div>
               <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-lg">
@@ -120,6 +122,7 @@ export default function PartnershipPage() {
                   <p className="text-gray-600 text-sm">
                     Air purifiers, water purifiers, bidets, and more
                   </p>
+                  <p className="text-gray-600 text-sm">空气净化、净水、智能马桶盖等完整品类</p>
                 </div>
               </div>
               <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-lg">
@@ -129,6 +132,7 @@ export default function PartnershipPage() {
                   <p className="text-gray-600 text-sm">
                     Bay Area installation, service, and marketing enablement
                   </p>
+                  <p className="text-gray-600 text-sm">湾区安装、售后与营销支持团队</p>
                 </div>
               </div>
             </div>
@@ -146,6 +150,7 @@ export default function PartnershipPage() {
                     Product training, sales support, and marketing materials in
                     English and Chinese
                   </p>
+                  <p className="text-gray-600 text-sm mt-1">中英文产品、销售与物料培训</p>
                 </div>
               </div>
             </div>
@@ -163,6 +168,7 @@ export default function PartnershipPage() {
                     Regional support team, installation services, and customer
                     service assistance
                   </p>
+                  <p className="text-gray-600 text-sm mt-1">区域团队、安装与客服全程支持</p>
                 </div>
               </div>
             </div>
@@ -180,6 +186,7 @@ export default function PartnershipPage() {
                     Co-op marketing programs, promotional materials, and digital
                     marketing resources
                   </p>
+                  <p className="text-gray-600 text-sm mt-1">联合营销计划与数字物料支持</p>
                 </div>
               </div>
             </div>

@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-[#F5F5F5]">
       {/* Header */}
@@ -21,19 +26,19 @@ export default function Home() {
             <nav className="hidden md:flex items-center gap-8">
               <Link
                 href="/products"
-                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors"
+                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors inline-block w-[150px] text-center"
               >
                 Products 产品
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors"
+                className="text-gray-700 hover:text-[#00A8E3] font-medium transition-colors inline-block w-[150px] text-center"
               >
                 Contact 联系我们
               </Link>
               <a
                 href="#wechat"
-                className="inline-flex items-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors"
+                className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors w-[150px]"
                 title="WeChat: WeijingJayLin"
               >
                 <svg
@@ -54,7 +59,11 @@ export default function Home() {
             </nav>
 
             {/* Mobile menu button */}
-            <button className="md:hidden p-2 text-gray-700">
+            <button
+              className="md:hidden p-2 text-gray-700"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+            >
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -70,6 +79,38 @@ export default function Home() {
               </svg>
             </button>
           </div>
+          {mobileOpen && (
+            <div className="md:hidden mt-3 rounded-lg border border-gray-200 bg-white shadow-lg">
+              <Link
+                href="/products"
+                className="block px-4 py-3 text-gray-700 hover:bg-[#E6F7FC] font-medium transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Products 产品
+              </Link>
+              <Link
+                href="/contact"
+                className="block px-4 py-3 text-gray-700 hover:bg-[#E6F7FC] font-medium transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Contact 联系我们
+              </Link>
+              <a
+                href="#wechat"
+                className="block px-4 py-3 text-gray-700 hover:bg-[#E6F7FC] font-medium transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                WeChat 微信
+              </a>
+              <Link
+                href="/partnership"
+                className="block px-4 py-3 text-gray-700 hover:bg-[#E6F7FC] font-medium transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Partnership 招商加盟
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
@@ -698,28 +739,21 @@ export default function Home() {
 
               <div className="flex flex-col gap-3">
                 <Link
-                  href="/contact"
+                  href="https://cowaymega.com/"
                   className="block w-full bg-[#00A8E3] px-8 py-3 text-center text-base font-medium text-white hover:bg-[#0097CC] transition-colors rounded-lg shadow-md"
                 >
-                  Get Pricing 获取报价
-                </Link>
-                <a
-                  href="https://cowaymega.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center text-base font-medium text-[#00A8E3] bg-white border-2 border-[#00A8E3]/50 hover:border-[#00A8E3] hover:bg-[#E6F7FC] transition-colors rounded-lg"
-                >
                   Retail Purchase 零售购买
-                </a>
+                </Link>
               </div>
             </div>
           </div>
 
-          {/* Additional Benefits Banner */}
+          {/* Included Services Banner */}
           <div className="mt-8 bg-white border-2 border-[#00A8E3]/30 p-8 text-center rounded-xl shadow-md">
-            <h3 className="text-2xl font-bold text-[#005A7A] mb-6">
-              Limited Time Bay Area Promotion
+            <h3 className="text-2xl font-bold text-[#005A7A] mb-2">
+              Always Included in the Bay Area
             </h3>
+            <p className="text-sm text-[#00A8E3] mb-6">本湾区客户默认享有的服务</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div className="text-3xl mb-2">🚚</div>
@@ -802,10 +836,15 @@ export default function Home() {
       </section>
 
       {/* Contact Us - WeChat */}
-      <section id="wechat" className="py-16 bg-gray-50 border-t border-gray-200">
+      <section
+        id="wechat"
+        className="py-16 bg-gray-50 border-t border-gray-200"
+      >
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Contact Us</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Contact Us
+            </h2>
             <p className="text-base text-gray-600">联系我们</p>
           </div>
 
@@ -816,7 +855,9 @@ export default function Home() {
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
                   Address 地址
                 </h3>
-                <p className="text-gray-800">200 Skyline Plaza, Daly City, CA 94015</p>
+                <p className="text-gray-800">
+                  200 Skyline Plaza, Daly City, CA 94015
+                </p>
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
@@ -826,11 +867,11 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                Phone 电话
-              </h3>
-              <p className="text-gray-800">415-370-2887</p>
+                  Phone 电话
+                </h3>
+                <p className="text-gray-800">415-370-2887</p>
+              </div>
             </div>
-          </div>
             <div className="relative w-full h-72 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
               <iframe
                 title="Coway Bay Area Location Map"
@@ -846,7 +887,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             <div className="bg-white rounded-xl p-6 shadow-md border-2 border-green-500">
               <div className="text-center mb-3">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">Product Department</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">
+                  Product Department
+                </h3>
                 <p className="text-sm text-gray-600">产品部门</p>
               </div>
               <div className="relative w-full max-w-xs mx-auto">
@@ -862,7 +905,9 @@ export default function Home() {
 
             <div className="bg-white rounded-xl p-6 shadow-md border-2 border-green-500">
               <div className="text-center mb-3">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">Sales Department</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">
+                  Sales Department
+                </h3>
                 <p className="text-sm text-gray-600">销售部门</p>
               </div>
               <div className="relative w-full max-w-xs mx-auto">
