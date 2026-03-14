@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import AuthButton from "@/components/AuthButton";
 
 export default function ContactPage() {
   return (
@@ -51,6 +54,7 @@ export default function ContactPage() {
               >
                 Partnership 招商加盟
               </Link>
+              <AuthButton />
             </nav>
 
             {/* Mobile menu button */}

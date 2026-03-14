@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import AuthButton from "@/components/AuthButton";
 
 export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,6 +57,7 @@ export default function Home() {
               >
                 Partnership 招商加盟
               </Link>
+              <AuthButton />
             </nav>
 
             {/* Mobile menu button */}
@@ -109,6 +111,9 @@ export default function Home() {
               >
                 Partnership 招商加盟
               </Link>
+              <div className="px-4 py-3 border-t border-gray-100">
+                <AuthButton />
+              </div>
             </div>
           )}
         </div>

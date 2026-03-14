@@ -1,5 +1,8 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import AuthButton from "@/components/AuthButton";
 
 export default function ProductsPage() {
   const products = [
@@ -96,6 +99,7 @@ export default function ProductsPage() {
               >
                 Partnership 招商加盟
               </Link>
+              <AuthButton />
             </nav>
 
             {/* Mobile menu button */}

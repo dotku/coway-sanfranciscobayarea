@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import AuthButton from "@/components/AuthButton";
 
 export default function PartnershipPage() {
   return (
@@ -53,6 +54,7 @@ export default function PartnershipPage() {
               >
                 Partnership 招商加盟
               </Link>
+              <AuthButton />
             </nav>
 
             {/* Mobile menu button */}
