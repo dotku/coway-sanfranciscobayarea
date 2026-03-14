@@ -1,19 +1,25 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useChat } from "@ai-sdk/react";
+import { TextStreamChatTransport } from "ai";
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-}
+const adminTransport = new TextStreamChatTransport({
+  api: "/api/chat",
+  body: { mode: "admin" },
+});
 
 export default function AdminHelpBot() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { messages, sendMessage, status } = useChat({
+    transport: adminTransport,
+  });
+
+  const isLoading = status === "streaming" || status === "submitted";
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,70 +31,11 @@ export default function AdminHelpBot() {
     }
   }, [open]);
 
-  const sendMessage = async () => {
+  const handleSend = () => {
     const text = input.trim();
-    if (!text || loading) return;
-
-    const userMsg: Message = { role: "user", content: text };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
+    if (!text || isLoading) return;
     setInput("");
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages, mode: "admin" }),
-      });
-
-      if (!res.ok) throw new Error("Failed to send message");
-
-      const reader = res.body?.getReader();
-      if (!reader) throw new Error("No reader");
-
-      const decoder = new TextDecoder();
-      let assistantText = "";
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-        const lines = chunk.split("\n");
-
-        for (const line of lines) {
-          if (line.startsWith("data: ") && line !== "data: [DONE]") {
-            try {
-              const data = JSON.parse(line.slice(6));
-              assistantText += data.text;
-              setMessages((prev) => {
-                const updated = [...prev];
-                updated[updated.length - 1] = {
-                  role: "assistant",
-                  content: assistantText,
-                };
-                return updated;
-              });
-            } catch {
-              // skip parse errors
-            }
-          }
-        }
-      }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "Sorry, I'm having trouble connecting. Please try again later.",
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+    sendMessage({ text });
   };
 
   return (
@@ -167,9 +114,9 @@ export default function AdminHelpBot() {
                 </p>
               </div>
             )}
-            {messages.map((msg, i) => (
+            {messages.map((msg) => (
               <div
-                key={i}
+                key={msg.id}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
@@ -179,31 +126,36 @@ export default function AdminHelpBot() {
                       : "bg-gray-100 text-gray-800 rounded-bl-md"
                   }`}
                 >
-                  {msg.content}
+                  {msg.parts
+                    ?.filter((p) => p.type === "text")
+                    .map((p) => p.text)
+                    .join("")}
                 </div>
               </div>
             ))}
-            {loading && messages[messages.length - 1]?.role !== "assistant" && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl rounded-bl-md px-4 py-2 text-sm text-gray-400">
-                  <span className="inline-flex gap-1">
-                    <span className="animate-bounce">.</span>
-                    <span
-                      className="animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    >
-                      .
+            {isLoading &&
+              messages.length > 0 &&
+              messages[messages.length - 1]?.role === "user" && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-2xl rounded-bl-md px-4 py-2 text-sm text-gray-400">
+                    <span className="inline-flex gap-1">
+                      <span className="animate-bounce">.</span>
+                      <span
+                        className="animate-bounce"
+                        style={{ animationDelay: "0.1s" }}
+                      >
+                        .
+                      </span>
+                      <span
+                        className="animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      >
+                        .
+                      </span>
                     </span>
-                    <span
-                      className="animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    >
-                      .
-                    </span>
-                  </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -214,14 +166,14 @@ export default function AdminHelpBot() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask anything..."
               className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-[#005A7A] focus:ring-1 focus:ring-[#005A7A]"
-              disabled={loading}
+              disabled={isLoading}
             />
             <button
-              onClick={sendMessage}
-              disabled={loading || !input.trim()}
+              onClick={handleSend}
+              disabled={isLoading || !input.trim()}
               className="w-9 h-9 rounded-full bg-[#005A7A] hover:bg-[#004A66] text-white flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0"
             >
               <svg
