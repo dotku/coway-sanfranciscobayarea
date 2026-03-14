@@ -19,14 +19,9 @@ export default function AuthButton() {
     const admin = isAdmin(user.email);
     return (
       <div className="flex items-center gap-3">
-        {user.picture && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={user.picture}
-            alt={user.name || "User"}
-            className="h-8 w-8 rounded-full"
-          />
-        )}
+        <div className="h-8 w-8 rounded-full bg-[#E6F7FC] text-[#005A7A] flex items-center justify-center font-bold text-sm flex-shrink-0">
+          {(user.name || user.email || "U").charAt(0).toUpperCase()}
+        </div>
         <Link
           href="/dashboard"
           className="text-[#00A8E3] hover:text-[#0097CC] text-sm font-medium transition-colors"
