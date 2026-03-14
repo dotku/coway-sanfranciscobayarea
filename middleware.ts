@@ -10,6 +10,14 @@ export async function middleware(request: NextRequest) {
   const authRes = await auth0.middleware(request);
 
   if (request.nextUrl.pathname.startsWith("/auth")) {
+    // Suppress 401 on /auth/profile for unauthenticated users
+    // Return empty JSON so Auth0Provider treats it as "no user" without a console error
+    if (
+      request.nextUrl.pathname === "/auth/profile" &&
+      authRes.status === 401
+    ) {
+      return NextResponse.json(null, { status: 200 });
+    }
     return authRes;
   }
 
