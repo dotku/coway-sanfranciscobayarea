@@ -67,15 +67,34 @@ export async function POST(request: NextRequest) {
 
   const anthropic = createAnthropic({
     apiKey,
+    baseURL: "https://ai-gateway.vercel.sh",
   });
 
+  // UIMessages from TextStreamChatTransport have `parts` array, not `content` string
+  const convertedMessages = messages.map(
+    (m: {
+      role: string;
+      content?: string;
+      parts?: { type: string; text?: string }[];
+    }) => {
+      const text =
+        m.content ||
+        m.parts
+          ?.filter((p) => p.type === "text")
+          .map((p) => p.text)
+          .join("") ||
+        "";
+      return {
+        role: m.role as "user" | "assistant",
+        content: text,
+      };
+    }
+  );
+
   const result = streamText({
-    model: anthropic("claude-sonnet-4-20250514"),
+    model: anthropic("anthropic/claude-sonnet-4-20250514"),
     system: systemPrompt,
-    messages: messages.map((m: { role: string; content: string }) => ({
-      role: m.role as "user" | "assistant",
-      content: m.content,
-    })),
+    messages: convertedMessages,
     maxOutputTokens: 1024,
   });
 

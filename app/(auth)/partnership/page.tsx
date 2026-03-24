@@ -273,12 +273,20 @@ export default function PartnershipPage() {
                   <h3 className="font-semibold text-gray-900 mb-1">
                     Email 邮件
                   </h3>
-                  <a
-                    href="mailto:jay.lin@jytech.us"
-                    className="text-[#00A8E3] hover:text-[#0097CC] font-semibold"
-                  >
-                    jay.lin@jytech.us
-                  </a>
+                  <div className="space-y-1">
+                    <a
+                      href="mailto:jay.lin@jytech.us"
+                      className="block text-[#00A8E3] hover:text-[#0097CC] font-semibold"
+                    >
+                      jay.lin@jytech.us
+                    </a>
+                    <a
+                      href="mailto:huixuanliu73@gmail.com"
+                      className="block text-[#00A8E3] hover:text-[#0097CC] font-semibold"
+                    >
+                      huixuanliu73@gmail.com
+                    </a>
+                  </div>
                 </div>
 
                 <div className="p-4 border border-gray-100 rounded-lg bg-gray-50">

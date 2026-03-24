@@ -103,7 +103,7 @@ export default function ContactPage() {
 
         {/* Contact Info */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center md:text-left mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center md:text-left mb-6">
             <div>
               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
                 Address 地址
@@ -114,13 +114,29 @@ export default function ContactPage() {
               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
                 Contact 联系人
               </h3>
-              <p className="text-gray-800">Jay Lin</p>
+              <div className="space-y-1">
+                <p className="text-gray-800">Jay Lin</p>
+                <p className="text-gray-800">Nicole Xuan</p>
+              </div>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
                 Phone 电话
               </h3>
               <p className="text-gray-800">415-370-2887</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                Email 邮箱
+              </h3>
+              <div className="space-y-1">
+                <a href="mailto:jay.lin@jytech.us" className="block text-[#00A8E3] hover:text-[#0097CC] font-medium">
+                  jay.lin@jytech.us
+                </a>
+                <a href="mailto:huixuanliu73@gmail.com" className="block text-[#00A8E3] hover:text-[#0097CC] font-medium">
+                  huixuanliu73@gmail.com
+                </a>
+              </div>
             </div>
           </div>
           <div className="relative w-full h-72 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
