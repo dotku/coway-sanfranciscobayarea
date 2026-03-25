@@ -117,13 +117,17 @@ export default function ContactPage() {
               <div className="space-y-1">
                 <p className="text-gray-800">Jay Lin</p>
                 <p className="text-gray-800">Nicole Xuan</p>
+                <p className="text-gray-800">Xianji Li</p>
               </div>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
                 Phone 电话
               </h3>
-              <p className="text-gray-800">415-370-2887</p>
+              <div className="space-y-1">
+                <a href="tel:+14153702887" className="block text-gray-800 hover:text-[#00A8E3]">415-370-2887</a>
+                <a href="tel:+14155316363" className="block text-gray-800 hover:text-[#00A8E3]">415-531-6363</a>
+              </div>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
